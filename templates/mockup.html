@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Classification with YOLOv5</title>
+    <title>Cancer Classification with YOLOv5</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: rgb(207,207,207); 
+            font-family: Arial, sans-serif;
+            color: rgb(55, 55, 55);
         }
         .container {
             max-width: 800px;
@@ -30,14 +32,14 @@
         }
         .results {
             display: block;
-            background-color: #fff;
+            background-color: rgb(230,230,230);
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
         .instructions {
-            background-color: #fff;
+            background-color: rgb(230,230,230);
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -46,8 +48,12 @@
             font-family: 'Roboto', sans-serif;
             font-size: 16px;
             line-height: 1.5;
-            color: #333;
+            color: rgb(55, 55, 55);
         }
+        .bcc-text {
+            color: #EF2323; /* Peach-ish color for "Basal Cell Carcinoma (BCC)" */
+        }
+
     </style>
 </head>
 <body>
@@ -60,7 +66,8 @@
         <div class="results" id="results">
             <h2>Classification Results</h2>
             <p>The uploaded image is classified as:</p>
-            <h3>Basal Cell Carcinoma (BCC)</h3>
+            <h3><p class="bcc-text">Basal Cell Carcinoma (BCC)</p>
+            </h3>
             <h4>Causes</h4>
             <p>Basal cell carcinoma (BCC) is a type of skin cancer that forms in the basal cells of your skin. It looks like a small, sometimes shiny bump or scaly flat patch on your skin that slowly grows over time. BCC can affect anyone but it’s slightly more common among men and people assigned male at birth. It occurs more often in people older than 50 years. People with fair skin and light eyes are more likely to get BCC.</p>
             <h4>Treatment</h4>
