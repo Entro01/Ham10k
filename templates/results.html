@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cancer Classification Result</title>
+    <title>Classification Result</title>
 </head>
 <body>
     <h1>Classification Result</h1>
-    <ul>
-        {% for name in class_names %}
-            <li>{{ name }}</li>
-        {% endfor %}
-    </ul>
+    <p>Predicted Class: {{ class_name }}</p>
+    <p>Class Score: {{ class_score }}</p>
 </body>
 </html>

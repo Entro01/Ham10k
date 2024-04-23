@@ -22,7 +22,7 @@ def set_posix_windows():
 
 import torch
 
-EXPORT_PATH = pathlib.Path("C:/Users/shubh/Desktop/Ham10k/model/best.pt")
+EXPORT_PATH = pathlib.Path("C:/Users/shubh/Desktop/Ham10k/model/last.pt")
 
 with set_posix_windows():
     model = torch.hub.load('ultralytics/yolov5', 'custom', path=EXPORT_PATH, force_reload=True)
@@ -45,21 +45,21 @@ def process_image(filename):
     img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     img = Image.open(img_path).convert('RGB')
     transform = transforms.Compose([transforms.ToTensor()])
-    img_tensor = transform(img)
-    img_tensor = img_tensor.unsqueeze(0)
+    img_tensor = transform(img).unsqueeze(0)
 
-    # Predict using the YOLOv5 model
+    # Predict using the YOLOv5 classification model
     with torch.no_grad():
-        prediction = model(img_tensor)
+        prediction = model(img_tensor)[0]  # Get the single prediction
+        prediction[5] = prediction[5] - 1
+        print(f"Prediction tensor for {filename}: {prediction}")
 
-    # Process the prediction to get the classification
-    # Assuming the model returns a list of detections
-    # You'll need to adjust this part based on the actual output of your model
-    # For simplicity, let's assume the model returns a list of class names
-    class_names = prediction.xyxyn[0][:, -1].tolist()
+    # Get the class with the highest score
+    class_idx = prediction.argmax().item()
+    print(f"Predicted class index for {filename}: {class_idx}")
+    class_name = model.names[class_idx]
+    class_score = prediction[class_idx].item()
 
     # Render the result
-    return render_template('results.html', class_names=class_names)
-
+    return render_template('results.html', class_name=class_name, class_score=class_score)
 if __name__ == '__main__':
     app.run(debug=True)
