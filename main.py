@@ -50,16 +50,19 @@ def process_image(filename):
     # Predict using the YOLOv5 classification model
     with torch.no_grad():
         prediction = model(img_tensor)[0]  # Get the single prediction
-        prediction[5] = prediction[5] - 1
+        prediction[5] = prediction[5] * 0.1
         print(f"Prediction tensor for {filename}: {prediction}")
 
     # Get the class with the highest score
+    threshold = 0.01
     class_idx = prediction.argmax().item()
-    print(f"Predicted class index for {filename}: {class_idx}")
-    class_name = model.names[class_idx]
-    class_score = prediction[class_idx].item()
+    if prediction[class_idx] > threshold:
+        class_name = model.names[class_idx]
+        class_score = prediction[class_idx].item()
+        # Render the result
+        return render_template('results.html', class_name=class_name, class_score=class_score)
+    else:
+        return render_template('results.html', class_name="Clear Skin", class_score=1.0)
 
-    # Render the result
-    return render_template('results.html', class_name=class_name, class_score=class_score)
 if __name__ == '__main__':
     app.run(debug=True)
