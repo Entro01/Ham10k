@@ -2,13 +2,72 @@
 <html>
 <head>
     <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(207, 207, 207);
+            color: rgb(55, 55, 55);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .instructions {
+            background-color: rgb(230, 230, 230);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-align: left;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: rgb(55, 55, 55);
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload an Image</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
+    <div class="top-bar">
+        <h1>Cancer Classification with YOLOv5</h1>
+    </div>
+    <div class="container">
+        <h1>Upload an Image</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="Upload">
+        </form>
+        <div class="instructions">
+            <h2>How to Use This Website</h2>
+            <p>To use this website, simply upload an image of a pigmented lesion. The image will be classified into one of the following categories:</p>
+            <ul>
+                <li>Actinic keratoses and intraepithelial carcinoma / Bowen's disease (AKIEC)</li>
+                <li>Basal cell carcinoma (BCC)</li>
+                <li>Benign keratosis-like lesions (solar lentigines / seborrheic keratoses and lichen-planus like keratoses, BKL)</li>
+                <li>Dermatofibroma (DF)</li>
+                <li>Melanoma (MEL)</li>
+                <li>Melanocytic nevi (NV)</li>
+                <li>Vascular lesions (angiomas, angiokeratomas, pyogenic granulomas and hemorrhage, VASC)</li>
+            </ul>
+            <p>The classification process is powered by a YOLOv5 model trained on the HAM10K dataset, providing accurate and reliable results.</p>
+        </div>
+    </div>
 </body>
 </html>
- 

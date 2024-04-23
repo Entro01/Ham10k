@@ -2,10 +2,66 @@
 <html>
 <head>
     <title>Classification Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(207, 207, 207);
+            color: rgb(55, 55, 55);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .results {
+            display: block;
+            background-color: rgb(230, 230, 230);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .bcc-text {
+            color: #EF2323; /* Peach-ish color for "Basal Cell Carcinoma (BCC)" */
+        }
+    </style>
 </head>
 <body>
-    <h1>Classification Result</h1>
-    <p>Predicted Class: {{ class_name }}</p>
-    <p>Class Score: {{ class_score }}</p>
+    <div class="top-bar">
+        <h1>Cancer Classification with YOLOv5</h1>
+    </div>
+    <div class="container">
+        <h1>Classification Result</h1>
+        <div class="results">
+            <h2>Classification Results</h2>
+            <p>The uploaded image is classified as:</p>
+            <h3><p class="bcc-text">{{ class_name }}</p></h3>
+            <h4>Causes</h4>
+            {% if class_name == "Basal Cell Carcinoma (BCC)" %}
+            <p>Basal cell carcinoma (BCC) is a type of skin cancer that forms in the basal cells of your skin. It looks like a small, sometimes shiny bump or scaly flat patch on your skin that slowly grows over time. BCC can affect anyone but it's slightly more common among men and people assigned male at birth. It occurs more often in people older than 50 years. People with fair skin and light eyes are more likely to get BCC.</p>
+            {% else %}
+            <p>Information about the causes of this condition is not available.</p>
+            {% endif %}
+            <h4>Treatment</h4>
+            {% if class_name == "Basal Cell Carcinoma (BCC)" %}
+            <p>Your provider will treat basal cell carcinoma by removing cancer from your body. Treatment options could include electrodessication and curettage, surgery, cryotherapy or cryosurgery, chemotherapy, photodynamic therapy (PDT), and laser therapy. The best treatment option will be chosen based on your overall health, age, the location of the cancer, and the size of the BCC.</p>
+            {% else %}
+            <p>Information about the treatment of this condition is not available.</p>
+            {% endif %}
+            <p>Class Score: {{ class_score }}</p>
+        </div>
+    </div>
 </body>
 </html>
