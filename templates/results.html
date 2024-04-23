@@ -33,8 +33,10 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
-        .bcc-text {
-            color: #EF2323; /* Peach-ish color for "Basal Cell Carcinoma (BCC)" */
+        .cancer-class {
+            font-size: 2em; /* Increase the font size for the cancer class name */
+            font-weight: bold;
+            color: #EF2323; /* Peach-ish color for the cancer class name */
         }
     </style>
 </head>
@@ -47,7 +49,7 @@
         <div class="results">
             <h2>Classification Results</h2>
             <p>The uploaded image is classified as:</p>
-            <h3><p class="bcc-text">{{ class_name }}</p></h3>
+            <p class="cancer-class">{{ class_name }}</p>
             <h4>Causes</h4>
             {% if class_name == "AKIEC" %}
             <p>Actinic keratoses and intraepithelial carcinoma are skin lesions caused by excessive exposure to ultraviolet radiation from the sun or tanning beds. These lesions are precancerous and can develop into squamous cell carcinoma if left untreated.</p>
