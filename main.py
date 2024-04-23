@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from werkzeug.utils import secure_filename
 import os
 import torch
 from torchvision import transforms
@@ -7,15 +8,28 @@ from PIL import Image
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
-# Load your YOLOv5 model
-#model = torch.hub.load('ultralytics/yolov5', 'custom', path='../model/best.pt', force_reload=True)
-#model.eval()
+from contextlib import contextmanager
+import pathlib
+
+@contextmanager
+def set_posix_windows():
+    posix_backup = pathlib.PosixPath
+    try:
+        pathlib.PosixPath = pathlib.WindowsPath
+        yield
+    finally:
+        pathlib.PosixPath = posix_backup
+
+import torch
+
+EXPORT_PATH = pathlib.Path("C:/Users/shubh/Desktop/Ham10k/model/best.pt")
+
+with set_posix_windows():
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path=EXPORT_PATH, force_reload=True)
+
+model.eval()
 
 @app.route('/', methods=['GET', 'POST'])
-def landing():
-    return render_template('mockup.html')
-
-@app.route('/page', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
@@ -39,12 +53,13 @@ def process_image(filename):
         prediction = model(img_tensor)
 
     # Process the prediction to get the classification
-    # This part depends on how you want to display the classification
+    # Assuming the model returns a list of detections
+    # You'll need to adjust this part based on the actual output of your model
     # For simplicity, let's assume the model returns a list of class names
     class_names = prediction.xyxyn[0][:, -1].tolist()
 
     # Render the result
-    return render_template('result.html', class_names=class_names)
+    return render_template('results.html', class_names=class_names)
 
 if __name__ == '__main__':
     app.run(debug=True)
